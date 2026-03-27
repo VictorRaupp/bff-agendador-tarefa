@@ -1,4 +1,4 @@
-package com.victor.bffagendadortarefa.business.dto
+package com.victor.bffagendadortarefa.business.dto.out
 ;
 
 
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TarefaDTO {
+public class TarefaDTOResponse {
 
     private String id;
     private String nomeTarefa;

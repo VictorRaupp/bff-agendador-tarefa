@@ -2,7 +2,8 @@ package com.victor.bffagendadortarefa.controller;
 
 
 import com.victor.bffagendadortarefa.business.TarefaService;
-import com.victor.bffagendadortarefa.business.dto.TarefaDTO;
+import com.victor.bffagendadortarefa.business.dto.in.TarefaDTORequest;
+import com.victor.bffagendadortarefa.business.dto.out.TarefaDTOResponse;
 import com.victor.bffagendadortarefa.infrastructure.enuns.StatusTarefaEnum;
 import com.victor.bffagendadortarefa.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,8 +30,8 @@ public class TarefaController {
     @Operation(summary = "Cadastra terafas de Usuarios", description = "Cadastra tarefa")
     @ApiResponse(responseCode = "200", description = "Tarefa cadastrada com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de Servidor")
-    public ResponseEntity<TarefaDTO> gravarTarefa(@RequestBody TarefaDTO dto,
-                                                  @RequestHeader("Authorization") String token) {
+    public ResponseEntity<TarefaDTOResponse> gravarTarefa(@RequestBody TarefaDTORequest dto,
+                                                          @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(tarefaService.gravarTarefa(token, dto));
     }
 
@@ -38,7 +39,7 @@ public class TarefaController {
     @Operation(summary = "Busca lista de tarefa por periodo", description = "Busca list de tarefa do usuario por periodo")
     @ApiResponse(responseCode = "200", description = "tarefa encontrada")
     @ApiResponse(responseCode = "500", description = "Erro de Servidor")
-    public ResponseEntity<List<TarefaDTO>> buscaListaDeTerefasPorPeriodo(
+    public ResponseEntity<List<TarefaDTOResponse>> buscaListaDeTerefasPorPeriodo(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal,
             @RequestHeader("Authorization") String token
@@ -51,7 +52,7 @@ public class TarefaController {
     @Operation(summary = "Busca  tarefa por email", description = "Busca tarefa do usuario por email")
     @ApiResponse(responseCode = "200", description = "tarefa encontrada")
     @ApiResponse(responseCode = "500", description = "Erro de Servidor")
-    public ResponseEntity<List<TarefaDTO>> buscaTarefaPorEmail(
+    public ResponseEntity<List<TarefaDTOResponse>> buscaTarefaPorEmail(
             @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(tarefaService.buscaTarefaPorEmail(token));
     }
@@ -70,9 +71,9 @@ public class TarefaController {
     @Operation(summary = "Atualiza Status da Tarefa", description = "Atualiza Status da Tarefa")
     @ApiResponse(responseCode = "200", description = "Status da terefa alterado")
     @ApiResponse(responseCode = "500", description = "Erro de Servidor")
-    public ResponseEntity<TarefaDTO> alteraStatusNotificacao(@RequestParam("status")
+    public ResponseEntity<TarefaDTOResponse> alteraStatusNotificacao(@RequestParam("status")
                                                              StatusTarefaEnum status, @RequestParam("id") String id,
-                                                             @RequestHeader("Authorization") String token) {
+                                                                    @RequestHeader("Authorization") String token) {
 
         return ResponseEntity.ok(tarefaService.alteraStatus(status, id, token));
     }
@@ -81,8 +82,8 @@ public class TarefaController {
     @Operation(summary = "Atualiza dados Tarefa", description = "Atualiza dados de Tarefas cadastradas")
     @ApiResponse(responseCode = "200", description = "Tarefa Atualizada")
     @ApiResponse(responseCode = "500", description = "Erro de Servidor")
-    public ResponseEntity<TarefaDTO> uptadeTarefa(@RequestBody TarefaDTO dto,@RequestParam ("id") String id,
-                                                  @RequestHeader("Authorization") String token){
+    public ResponseEntity<TarefaDTOResponse> uptadeTarefa(@RequestBody TarefaDTORequest dto, @RequestParam ("id") String id,
+                                                         @RequestHeader("Authorization") String token){
 
         return  ResponseEntity.ok(tarefaService.updateTarefa(dto, id, token));
     }

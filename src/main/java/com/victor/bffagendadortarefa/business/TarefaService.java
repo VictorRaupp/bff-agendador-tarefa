@@ -2,7 +2,8 @@ package com.victor.bffagendadortarefa.business;
 
 
 
-import com.victor.bffagendadortarefa.business.dto.TarefaDTO;
+import com.victor.bffagendadortarefa.business.dto.in.TarefaDTORequest;
+import com.victor.bffagendadortarefa.business.dto.out.TarefaDTOResponse;
 import com.victor.bffagendadortarefa.infrastructure.client.TarefaClient;
 import com.victor.bffagendadortarefa.infrastructure.enuns.StatusTarefaEnum;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +18,16 @@ public class TarefaService {
 
     private final TarefaClient tarefaClient;
 
-    public TarefaDTO gravarTarefa(String token, TarefaDTO dto) {
+    public TarefaDTOResponse gravarTarefa(String token, TarefaDTORequest dto) {
         return tarefaClient.gravarTarefa(dto, token);
     }
 
-    public List<TarefaDTO> buscaTarefasAgendadasPorPeriodo(LocalDateTime dataInial,
-                                                           LocalDateTime dataFinal, String token) {
+    public List<TarefaDTOResponse> buscaTarefasAgendadasPorPeriodo(LocalDateTime dataInial,
+                                                                  LocalDateTime dataFinal, String token) {
         return tarefaClient.buscaListaDeTerefasPorPeriodo(dataInial,dataFinal,token);
     }
 
-    public List<TarefaDTO> buscaTarefaPorEmail(String token) {
+    public List<TarefaDTOResponse> buscaTarefaPorEmail(String token) {
        return tarefaClient.buscaTarefaPorEmail(token);
     }
 
@@ -34,11 +35,11 @@ public class TarefaService {
        tarefaClient.deletaTarefaPorid(id, token);
     }
 
-    public TarefaDTO alteraStatus(StatusTarefaEnum status, String id, String token) {
+    public TarefaDTOResponse alteraStatus(StatusTarefaEnum status, String id, String token) {
      return tarefaClient.alteraStatusNotificacao(status, id, token);
     }
 
-    public TarefaDTO updateTarefa(TarefaDTO dto, String id, String token) {
+    public TarefaDTOResponse updateTarefa(TarefaDTORequest dto, String id, String token) {
        return tarefaClient.updateTarefa(dto,id,token);
     }
 }

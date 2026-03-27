@@ -1,4 +1,4 @@
-package com.victor.bffagendadortarefa.business.dto;
+package com.victor.bffagendadortarefa.business.dto.in;
 
 
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class EnderecoDTO {
+public class EnderecoDTORequest {
 
     private Long id;
     private String rua;
