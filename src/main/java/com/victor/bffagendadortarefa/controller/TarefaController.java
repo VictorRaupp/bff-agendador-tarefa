@@ -30,6 +30,7 @@ public class TarefaController {
     @Operation(summary = "Cadastra terafas de Usuarios", description = "Cadastra tarefa")
     @ApiResponse(responseCode = "200", description = "Tarefa cadastrada com sucesso")
     @ApiResponse(responseCode = "500", description = "Erro de Servidor")
+    @ApiResponse(responseCode = "401", description = "Usuario não autorizado")
     public ResponseEntity<TarefaDTOResponse> gravarTarefa(@RequestBody TarefaDTORequest dto,
                                                           @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(tarefaService.gravarTarefa(token, dto));
@@ -39,6 +40,7 @@ public class TarefaController {
     @Operation(summary = "Busca lista de tarefa por periodo", description = "Busca list de tarefa do usuario por periodo")
     @ApiResponse(responseCode = "200", description = "tarefa encontrada")
     @ApiResponse(responseCode = "500", description = "Erro de Servidor")
+    @ApiResponse(responseCode = "401", description = "Usuario não autorizado")
     public ResponseEntity<List<TarefaDTOResponse>> buscaListaDeTerefasPorPeriodo(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal,
@@ -52,6 +54,8 @@ public class TarefaController {
     @Operation(summary = "Busca  tarefa por email", description = "Busca tarefa do usuario por email")
     @ApiResponse(responseCode = "200", description = "tarefa encontrada")
     @ApiResponse(responseCode = "500", description = "Erro de Servidor")
+    @ApiResponse(responseCode = "403", description = "Email nao encontrado")
+    @ApiResponse(responseCode = "401", description = "Usuario não autorizado")
     public ResponseEntity<List<TarefaDTOResponse>> buscaTarefaPorEmail(
             @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(tarefaService.buscaTarefaPorEmail(token));
@@ -60,6 +64,8 @@ public class TarefaController {
     @DeleteMapping @Operation(summary = "Deleta Tarefa por ID", description = "Deleta tarefa cadastradas por ID")
     @ApiResponse(responseCode = "200", description = "Tarefa Deletada")
     @ApiResponse(responseCode = "500", description = "Erro de Servidor")
+    @ApiResponse(responseCode = "403", description = "Id nao encontrado")
+    @ApiResponse(responseCode = "401", description = "Usuario não autorizado")
     public ResponseEntity<Void> deletaTarefaPorid(@RequestParam("id") String id,
                                                   @RequestHeader("Authorization") String token) {
         tarefaService.deletaTaferaPorId(id, token);
@@ -71,6 +77,8 @@ public class TarefaController {
     @Operation(summary = "Atualiza Status da Tarefa", description = "Atualiza Status da Tarefa")
     @ApiResponse(responseCode = "200", description = "Status da terefa alterado")
     @ApiResponse(responseCode = "500", description = "Erro de Servidor")
+    @ApiResponse(responseCode = "403", description = "Id nao encontrado")
+    @ApiResponse(responseCode = "401", description = "Usuario não autorizado")
     public ResponseEntity<TarefaDTOResponse> alteraStatusNotificacao(@RequestParam("status")
                                                              StatusTarefaEnum status, @RequestParam("id") String id,
                                                                     @RequestHeader("Authorization") String token) {
@@ -82,6 +90,8 @@ public class TarefaController {
     @Operation(summary = "Atualiza dados Tarefa", description = "Atualiza dados de Tarefas cadastradas")
     @ApiResponse(responseCode = "200", description = "Tarefa Atualizada")
     @ApiResponse(responseCode = "500", description = "Erro de Servidor")
+    @ApiResponse(responseCode = "403", description = "Id nao encontrado")
+    @ApiResponse(responseCode = "401", description = "Usuario não autorizado")
     public ResponseEntity<TarefaDTOResponse> uptadeTarefa(@RequestBody TarefaDTORequest dto, @RequestParam ("id") String id,
                                                          @RequestHeader("Authorization") String token){
 
