@@ -27,16 +27,25 @@ public class CronService {
 
     @Scheduled(cron = "${cron.horario}")
     public void buscaTarefaProximaHora(){
+
         String token = login(converterParaRequestDto());
-        LocalDateTime horaFutura =  LocalDateTime.now().plusHours(1);
-        LocalDateTime horaFuturaMaisCinco = LocalDateTime.now().plusHours(1).plusMinutes(5);
 
-        List< TarefaDTOResponse> listaTarefa= tarefaService.buscaTarefasAgendadasPorPeriodo(
-                horaFutura, horaFuturaMaisCinco, token);
+        LocalDateTime horaFutura = LocalDateTime.now().plusHours(1);
+        LocalDateTime horaFuturaMaisCinco =
+                LocalDateTime.now().plusHours(1).plusMinutes(5);
 
-        listaTarefa.forEach(tarefa ->{
+        List<TarefaDTOResponse> listaTarefa =
+                tarefaService.buscaTarefasAgendadasPorPeriodo(
+                        horaFutura,
+                        horaFuturaMaisCinco,
+                        token);
+
+        listaTarefa.forEach(tarefa -> {
             emailService.enviaEmail(tarefa);
-            tarefaService.alteraStatus(StatusTarefaEnum.NOTIFICADO, tarefa.getId(), token);
+            tarefaService.alteraStatus(
+                    StatusTarefaEnum.NOTIFICADO,
+                    tarefa.getId(),
+                    token);
         });
     }
 
