@@ -33,8 +33,10 @@ public interface TarefaClient {
                            @RequestHeader(name= "Authorization", required = false) String token);
 
     @PatchMapping
-    TarefaDTOResponse alteraStatusNotificacao(@RequestParam("status") StatusTarefaEnum status,
-                                             @RequestHeader(name= "Authorization", required = false) String token, String s);
+    TarefaDTOResponse alteraStatusNotificacao(
+            @RequestParam("status") StatusTarefaEnum status,
+            @RequestParam("id") String id,
+            @RequestHeader(name = "Authorization", required = false) String token);
 
     @PutMapping
     TarefaDTOResponse updateTarefa(@RequestBody TarefaDTORequest dto,
